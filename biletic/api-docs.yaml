@@ -1,0 +1,515 @@
+openapi: 3.0.1
+info:
+  title: AxTrain
+  description: Axenix Train Service
+  version: "1.0"
+servers:
+- url: http://84.252.135.231
+  description: Generated server url
+security:
+- bearerAuth: []
+tags:
+- name: AuthController
+  description: Регистрация и вход в систему
+- name: InfoController
+  description: "Получение информации о поездах, вагонах и местах"
+- name: OrderController
+  description: Создание заявок на бронь билетов на поезда
+paths:
+  /api/order:
+    post:
+      tags:
+      - OrderController
+      summary: Заказ билетов
+      description: Заказ билетов для ваших пользователей на конкретные места в конкретные
+        поезда
+      operationId: createOrder
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateOrderDTO"
+        required: true
+      responses:
+        "200":
+          description: Заказ обработан
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CreateOrderResponseDTO"
+        "400":
+          description: Заказ обработан с ошибками
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+      security:
+      - bearerAuth: []
+  /api/auth/register:
+    post:
+      tags:
+      - AuthController
+      summary: Регистрация
+      description: "Регистрация нового пользователя в системе. Помните, что итогов\
+        ые результаты будут собираться по названиям ваших команд!"
+      operationId: register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegistrationRequest"
+        required: true
+      responses:
+        "200":
+          description: Регистрация прошла успешна
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          description: Конфликт уникальных полей
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+  /api/auth/login:
+    post:
+      tags:
+      - AuthController
+      summary: Логин
+      description: Вход в систему
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AuthRequest"
+        required: true
+      responses:
+        "400":
+          description: Пользователь с такой почтой не найден
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        "200":
+          description: Вход успешен
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/info/wagons:
+    get:
+      tags:
+      - InfoController
+      summary: Информация о всех вагонах поезда
+      description: Детальная информация о всех вагонах в поезде
+      operationId: getAllTrainWagons
+      parameters:
+      - name: trainId
+        in: query
+        description: ID поезда
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 1
+      responses:
+        "200":
+          description: Информация о вагонах
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DetailedWagonInfoDTO"
+        "400":
+          description: Вагонов с таким ID поезда не существует
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+      security:
+      - bearerAuth: []
+  /api/info/wagons/{wagonId}:
+    get:
+      tags:
+      - InfoController
+      summary: Информация о вагоне
+      description: Детальная информация о конкретном вагоне по ID
+      operationId: getWagonInfo
+      parameters:
+      - name: wagonId
+        in: path
+        description: ID вагона
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 1
+      responses:
+        "200":
+          description: Информация о вагоне
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DetailedWagonInfoDTO"
+        "400":
+          description: Вагон с таким ID не найден
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+      security:
+      - bearerAuth: []
+  /api/info/trains:
+    get:
+      tags:
+      - InfoController
+      summary: Информация о поездах
+      description: Поиск всех возможных поездов с различными параметрами
+      operationId: getAllTrainsInfo
+      parameters:
+      - name: booking_available
+        in: query
+        description: Открыта ли возможность бронирования
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: boolean
+          default: true
+      - name: start_point
+        in: query
+        description: Пункт отправления
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: string
+          default: '%.*%'
+        example: Ростов-на-Дону
+      - name: end_point
+        in: query
+        description: Пункт прибытия
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: string
+          default: '%.*%'
+        example: Москва
+      - name: stop_points
+        in: query
+        description: Промежуточные пункты
+        required: false
+        allowEmptyValue: true
+        schema:
+          type: string
+          default: ""
+      responses:
+        "400":
+          description: Данные для фильтрации указаны неверно
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        "200":
+          description: Информация о поездах
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainInfoDTO"
+      security:
+      - bearerAuth: []
+  /api/info/train/{trainId}:
+    get:
+      tags:
+      - InfoController
+      summary: Информация о поезде
+      description: Детальная информация о конкретном поезде
+      operationId: getTrainInfo
+      parameters:
+      - name: trainId
+        in: path
+        description: ID поезда
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 1
+      responses:
+        "400":
+          description: Не найден поезд с указанным ID
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        "200":
+          description: Информация о поезде
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TrainInfoDTO"
+      security:
+      - bearerAuth: []
+  /api/info/seats:
+    get:
+      tags:
+      - InfoController
+      summary: Информация о местах в вагоне
+      description: Детальная информация о местах в вагоне
+      operationId: getAllWagonSeats
+      parameters:
+      - name: wagonId
+        in: query
+        description: ID вагона
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 1
+      responses:
+        "400":
+          description: Не найдены места с таким ID вагона
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        "200":
+          description: Информация о местах
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SeatInfoDTO"
+      security:
+      - bearerAuth: []
+  /api/info/seats/{seatId}:
+    get:
+      tags:
+      - InfoController
+      summary: Информация о месте
+      description: Детальная информация о месте по ID
+      operationId: getSeatInfo
+      parameters:
+      - name: seatId
+        in: path
+        description: ID места
+        required: true
+        schema:
+          type: integer
+          format: int64
+        example: 1
+      responses:
+        "400":
+          description: Место с таким ID не найдено
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorDTO"
+        "200":
+          description: Информация о месте
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SeatInfoDTO"
+      security:
+      - bearerAuth: []
+components:
+  schemas:
+    CreateOrderDTO:
+      type: object
+      properties:
+        train_id:
+          type: integer
+          description: ID поезда для бронирования мест
+          format: int64
+          example: 1
+        wagon_id:
+          type: integer
+          description: ID вагона внутри поезда для бронирования мест
+          format: int64
+          example: 1
+        seat_ids:
+          maxItems: 10
+          minItems: 1
+          type: array
+          description: ID мест для бронирования
+          example: 1
+          items:
+            type: integer
+            description: ID мест для бронирования
+            format: int64
+            example: 1
+    CreateOrderResponseDTO:
+      type: object
+      properties:
+        order_id:
+          type: integer
+          description: ID заявки
+          format: int64
+        status:
+          type: string
+          description: Статус заявки
+          enum:
+          - Success
+          - Failure
+    ErrorDTO:
+      type: object
+      properties:
+        error:
+          type: string
+          description: "Описание ошибки, с которой вы столкнулись"
+    RegistrationRequest:
+      type: object
+      properties:
+        fio:
+          type: string
+          description: "ФИО члена команды, от которого будут происходить обращения\
+            \ к сервису"
+          example: Петров Петр Петрович
+        email:
+          type: string
+          description: email для входа на сервис
+          example: qwe@qwe.ru
+        password:
+          maxLength: 24
+          minLength: 8
+          type: string
+          description: пароль от аккаунта
+        team:
+          type: string
+          description: Название вашей команды
+          example: МыЛучшие
+    AuthResponse:
+      type: object
+      properties:
+        token:
+          type: string
+          description: Bearer JWT token для вставки в Header Authorization
+    AuthRequest:
+      type: object
+      properties:
+        email:
+          type: string
+          description: email для входа в систему
+          example: qwe@qwe.ru
+        password:
+          type: string
+          description: пароль пользователя
+    DetailedWagonInfoDTO:
+      type: object
+      properties:
+        wagon_id:
+          type: integer
+          description: ID вагона
+          format: int64
+        type:
+          type: string
+          description: Тип вагона (все места в вагоне принадлежат этому типу)
+          enum:
+          - LOCAL
+          - PLATZCART
+          - COUPE
+          - SV
+          - LUX
+        seats:
+          type: array
+          description: Описание мест в вагоне
+          items:
+            $ref: "#/components/schemas/SeatInfoDTO"
+    SeatInfoDTO:
+      type: object
+      properties:
+        seat_id:
+          type: integer
+          description: ID места
+          format: int64
+        seatNum:
+          type: string
+          description: Номер места
+        block:
+          type: string
+          description: Условный блок места - в каком блоке/купе/псевдо-купе оно находится
+        price:
+          type: integer
+          description: Цена места
+          format: int64
+        bookingStatus:
+          type: string
+          description: Статус по бронированию места
+          enum:
+          - CLOSED
+          - FREE
+          - BOOKED
+    StopLocationInfoDTO:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Название пункта остановки
+        num:
+          type: integer
+          description: Порядковый номер по маршруту пункта остановки
+          format: int64
+        arrival:
+          type: string
+          description: Прибытие в формате HH:MM:SS (все время считать в локальном
+            часовом поясе)
+        departure:
+          type: string
+          description: Убытие в формате HH:MM:SS (все время считать в локальном часовом
+            поясе)
+      description: Детализованный маршрут с временем
+    TrainInfoDTO:
+      type: object
+      properties:
+        train_id:
+          type: integer
+          description: ID поезда
+          format: int64
+        global_route:
+          type: string
+          description: Глобальный маршрут поезда
+          example: Ростов-на-Дону -> Россошь -> Воронеж -> Москва
+        startpoint_departure:
+          type: string
+          description: Убытие из начальной точки в формате HH:MM:SS (все время считать
+            в локальном часовом поясе)
+        endpoint_arrival:
+          type: string
+          description: Прибытие в конечную точку в формате HH:MM:SS (все время считать
+            в локальном часовом поясе)
+        detailed_route:
+          type: array
+          description: Детализованный маршрут с временем
+          items:
+            $ref: "#/components/schemas/StopLocationInfoDTO"
+        wagons_info:
+          type: array
+          description: Детальная информация по вагонам
+          items:
+            $ref: "#/components/schemas/WagonInfoDTO"
+        available_seats_count:
+          type: integer
+          description: Сколько свободных мест осталось в поезде
+          format: int64
+    WagonInfoDTO:
+      type: object
+      properties:
+        wagon_id:
+          type: integer
+          description: ID вагона
+          format: int64
+        type:
+          type: string
+          description: Тип вагона
+          enum:
+          - LOCAL
+          - PLATZCART
+          - COUPE
+          - SV
+          - LUX
+      description: Детальная информация по вагонам
+  securitySchemes:
+    bearerAuth:
+      type: http
+      description: JWT Authorization header using the Bearer scheme
+      name: Authorization
+      in: header
+      scheme: bearer

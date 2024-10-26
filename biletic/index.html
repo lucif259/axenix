@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование билетов</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Бронирование билетов РЖД</h1>
+    </header>
+    <div class="container">
+        <form id="bookingForm">
+            <div class="form-group">
+                <label for="cityInput">Откуда:</label>
+                <input type="text" id="cityInput" onkeyup="filterCities('cityInput', 'cityList')" placeholder="Начните вводить город...">
+                <div id="cityList" class="city-list" style="display: none;">
+                    <div class="city-item">Ростов-на-Дону</div>
+                    <div class="city-item">Питер</div>
+                    <div class="city-item">Новоросийск</div>
+                    <div class="city-item">Москва</div>
+                    <div class="city-item">Сочи</div>
+                    <div class="city-item">Челябинск</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="toInput">Куда:</label>
+                <input type="text" id="toInput" onkeyup="filterCities('toInput', 'toList')" placeholder="Начните вводить город...">
+                <div id="toList" class="city-list" style="display: none;">
+                    <div class="city-item">Ростов-на-Дону</div>
+                    <div class="city-item">Питер</div>
+                    <div class="city-item">Новоросийск</div>
+                    <div class="city-item">Москва</div>
+                    <div class="city-item">Сочи</div>
+                    <div class="city-item">Челябинск</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Дата:</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="wagonType">Тип вагона:</label>
+                <select id="wagonType">
+                    <option value="plackart">Плацкарт</option>
+                    <option value="kupe">Купе</option>
+                    <option value="sv">СВ</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="seats">Количество мест:</label>
+                <input type="number" id="seats" min="1" max="10" value="1">
+            </div>
+            <button type="button" class="btn" onclick="showAvailableTickets()">Показать доступные билеты</button>
+        </form>
+    </div>
+
+    <script>
+    function filterCities(inputId, listId) {
+        var input = document.getElementById(inputId);
+        var filter = input.value.toLowerCase();
+        var cityList = document.getElementById(listId);
+        var cities = cityList.getElementsByClassName('city-item');
+
+        function showAvailableTickets() {
+    var fromCity = document.getElementById('cityInput').value;
+    var toCity = document.getElementById('toInput').value;
+    var date = document.getElementById('date').value;
+    var wagonType = document.getElementById('wagonType').value;
+    var seats = document.getElementById('seats').value;
+
+    // Отправить запрос на ваше API
+    fetch(`https://your-api-url.com/tickets?from=${fromCity}&to=${toCity}&date=${date}&wagonType=${wagonType}&seats=${seats}`)
+    .then(response => response.json())
+    .then(data => {
+        // Вывести полученные данные на страницу
+        console.log(data);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+
+        // Показать список, если введён текст
+        if (filter) {
+            cityList.style.display = 'block';
+        } else {
+            cityList.style.display = 'none';
+            return;
+        }
+
+        for (var i = 0; i < cities.length; i++) {
+            var city = cities[i].textContent.toLowerCase();
+            if (city.includes(filter)) {
+                cities[i].style.display = ""; // Показать город
+            } else {
+                cities[i].style.display = "none"; // Скрыть город
+            }
+        }
+    }
+
+    // Закрытие списка при клике вне его
+    document.addEventListener('click', function(event) {
+        const cityLists = document.querySelectorAll('.city-list');
+        cityLists.forEach(function(cityList) {
+            if (!cityList.contains(event.target) && event.target.id !== 'cityInput' && event.target.id !== 'to') {
+                cityList.style.display = 'none';
+            }
+        });
+    });
+
+    // Выбор города
+    document.querySelectorAll('.city-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const inputId = item.closest('.form-group').querySelector('input').id;
+            document.getElementById(inputId).value = this.textContent; // Устанавливаем выбранный город
+            this.parentElement.style.display = 'none'; // Скрываем список
+        });
+    });
+    </script>
+</body>
+</html>
+showavailableTickets
