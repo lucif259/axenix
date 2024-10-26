@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование билетов</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Бронирование билетов РЖД</h1>
+    </header>
+    <div class="container">
+        <form id="bookingForm">
+            <div class="form-group">
+                <label for="from">Откуда:</label>
+                <input type="text" id="from" required placeholder="Введите станцию отправления">
+            </div>
+            <div class="form-group">
+                <label for="to">Куда:</label>
+                <input type="text" id="to" required placeholder="Введите станцию назначения">
+            </div>
+            <div class="form-group">
+                <label for="date">Дата:</label>
+                <input type="date" id="date" required>
+            </div>
+            <div class="form-group">
+                <label for="wagonType">Тип вагона:</label>
+                <select id="wagonType">
+                    <option value="plackart">Плацкарт</option>
+                    <option value="kupe">Купе</option>
+                    <option value="sv">СВ</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="seats">Количество мест:</label>
+                <input type="number" id="seats" min="1" max="10" value="1">
+            </div>
+            <button type="button" class="btn" onclick="showAvailableTickets()">Показать доступные билеты</button>
+        </form>
+
+        <div id="availableTickets" class="tickets"></div>
+
+        <h2>Выбор мест</h2>
+        <div id="wagonMap"></div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Бронирование билетов РЖД</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
