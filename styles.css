@@ -1,75 +1,291 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
+    background-image: url(https://avatars.mds.yandex.net/i?id=13bc9d45081c440f61d5af41cc29ff99_l-7188894-images-thumbs&n=13);
+    background-repeat: no-repeat;
+    background-position: center 92px; /* Сместите фон на 100 пикселей вниз */
+    background-size: cover; 
+}
+.train{
+    position: absolute;
+    width: 94px;
+    height: 98px;
+    left: 23px;
+    top: -3px;
+    color: rgb(255, 255, 255);
+    font-family: Sarpanch;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+body {
+    background-image: url(https://avatars.mds.yandex.net/i?id=13bc9d45081c440f61d5af41cc29ff99_l-7188894-images-thumbs&n=13);
+    background-repeat: no-repeat;
+    background-position: center 92px; /* Сместите фон на 100 пикселей вниз */
+    background-size: cover; 
+}
+.logo {
+    max-width: 15%;
+    max-height: 11vh; /* Устанавливаем максимальную высоту логотипа */
+    height: auto; 
+    display: block; 
+    margin: 0 auto; 
+    position: absolute; 
+    left: 0;
 }
 
-header {
-    background-color: #0056b3;
-    color: white;
-    padding: 20px;
-    text-align: center;
+.tickets{
+    position: absolute;
+    width: 356px;
+    height: 38px;
+    left: 260px;
+    top: 0px;
+    color: rgb(0, 0, 0);
+    font-family: Raleway;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: 0%;
+    text-align: left;
 }
-
-.container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.marshrut{
+    position: absolute;
+    width: 165px;
+    height: 29px;
+    left: 685px;
+    top: 0px;
+    color: rgb(0, 0, 0);
+    font-family: Raleway;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0%;
+    text-align: left;
 }
-
-h1, h2 {
-    margin-bottom: 20px;
+.info{
+    position: absolute;
+    width: 124px;
+    height: 28px;
+    left: 980px;
+    right: -251px;
+    top: -6px;
+    bottom: -229px;
+    color: rgb(0, 0, 0);
+    font-family: Raleway;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 23px;
+    letter-spacing: 0%;
+    text-align: left;
 }
-
-.form-group {
-    margin-bottom: 15px;
+.signin{
+    position: absolute;
+    width: 75px;
+    height: 29px;
+    left: 1277px;
+    top: 10px;
+    color: rgb(0, 0, 0);
+    font-family: Raleway;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0%;
+    text-align: left;
 }
-
-label {
-    display: block;
+.vhod{
+    position: absolute;
+    width: 75px;
+    height: 38px;
+    left: 1277px;
+    top: 38px;
+    color: rgb(0, 0, 0);
+    font-family: Raleway;
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 10px;
+    letter-spacing: 0%;
+    text-align: left;
 }
-
-input, select {
-    width: 100%;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+a {
+    text-decoration: none; /* Убирает подчеркивание у всех ссылок */
 }
-
-.btn {
-    background-color: #28a745;
-    color: white;
-    padding: 10px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #218838;
-}
-
-.tickets {
-    margin-top: 20px;
-}
-
-.wagon-map {
+.otkuda{
+    position: absolute;
+    width: 320px;
+    height: 67px;
+    left: 72px;
+    top: 259px;
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 12px 16px 12px 16px;
+    box-sizing: border-box;
+    border: 2px solid rgb(175, 175, 175);
+    background: rgb(255, 255, 255);
+    color: rgb(146, 146, 146);
+    font-family: Raleway;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0%;
+    text-align: left;
+    
+}
+.kuda{
+    position: absolute;
+    width: 320px;
+    height: 67px;
+    left: 393px;
+    top: 259px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 12px 16px 12px 16px;
+    box-sizing: border-box;
+    border: 2px solid rgb(175, 175, 175);
+    background: rgb(255, 255, 255);
+    color: rgb(146, 146, 146);
+    font-family: Raleway;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+.out1 {
+    position: absolute;
+    width: 320px;
+    height: 67px;
+    left: 92px;
+    top: 259px;
+    box-sizing: border-box;
+    border: 2px solid rgb(175, 175, 175);
+    background: rgb(255, 255, 255);
+    color: rgb(146, 146, 146);
+    font-family: Raleway;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0%;
+    padding: 15px
 }
 
-.seat {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #007bff;
-    margin: 2px;
-    display: inline-block;
+.select-city-button:hover {
+    text-decoration: underline; /* Подчеркнуть текст при наведении */
 }
 
-footer {
-    text-align: center;
-    padding: 10px 0;
+.text {
+    position: absolute;
+    width: 320px;
+    height: 87px;
+    left: 72px;
+    top: 259px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: white;
+    text-align: left;
+    cursor: pointer;
+    box-sizing: border-box;
+    border: 1px solid rgb(175, 175, 175);
+    background: rgb(255, 255, 255);
+    position: absolute;
+    color: rgb(146, 146, 146);
+    font-family: Raleway;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+    
+.select-city-button:hover {
+        text-decoration: underline; /* Подчеркнуть текст при наведении */
+}
+.city-button:hover {
+        background-color: #f0f0f0;
+}
+.city-list {
+    position: absolute;
+    width: auto;
+    height: auto;
+    left: 72px;
+    top: 360px;
+    color: rgb(0, 0, 0);
+    border: 2px solid rgb(175, 175, 175);
+    border-radius: 8px;
+    background: rgb(255, 255, 255);
+    font-family: Raleway;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+.tuda{
+    position: absolute;
+    width: 320px;
+    height: 67px;
+    left: 714px;
+    top: 259px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 12px 16px 12px 16px;
+    box-sizing: border-box;
+    border: 2px solid rgb(175, 175, 175);
+    background: rgb(255, 255, 255);
+    color: rgb(146, 146, 146);
+    font-family: Raleway;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+.obratno{
+    position: absolute;
+    width: 320px;
+    height: 67px;
+    left: 1035px;
+    top: 259px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 12px 16px 12px 16px;
+    box-sizing: border-box;
+    border: 2px solid rgb(175, 175, 175);
+    background: rgb(255, 255, 255);
+    color: rgb(146, 146, 146);
+    font-family: Raleway;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0%;
+    text-align: left;
+}
+.searchticket{
+    position: absolute;
+    width: 320px;
+    height: 67px;
+    left: 1035px;
+    top: 327px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 12px 16px 12px 16px;
+    box-sizing: border-box;
+    border: 2px solid rgb(219, 113, 7);
+    background: rgb(219, 113, 7);
+    color: rgb(255, 255, 255);
+    font-family: Raleway;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 28px;
+    letter-spacing: 0%;
+    text-align: left;
 }
