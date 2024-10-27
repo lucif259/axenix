@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование билетов</title>
+    <link rel="stylesheet" href="styles (2) (2).css">
+</head>
+<body>
+    <div id="menu">
+        <img src="Изображения/5253651297398286134.jpg" alt="Логотип" class="logo">
+            <h1 class="train"></h1>
+            <h2 class="tickets">Забронировать билеты</h2>
+            <h3 class="marshrut">Маршруты</h3>
+            <h4 class="info">Информация</h4>
+            <button class="searchticket" onclick="openLogin()">Найти</button>
+            <script>
+            function openLogin() {
+                window.location.href = 'Изображения/Страницы/index1.html'; // Перенаправление на другую страницу
+            }
+        </script>
+            <script>
+                function openLogin() {
+                    window.open('Изображения/Страницы/index1.html', '_blank');
+                }
+            </script>
+            <a href="#" id="loginBtn" class = "vhod">Вход</a>
+            <div class="modal" style="display: none;">
+                <p class="email">Email</p>
+                <input type="text" class="modalin" placeholder="Адрес электронной почты" required>
+                <p class="password">Пароль</p>
+                <input type="password" class="modalps" placeholder="Пароль" required>
+                <button class="butsign">Войти</button>
+                <button class="butreg">Зарегистрироваться</button>
+            </div>
+            <div class="form-group">
+                <input type="text" id = "cityInput" class="out1" onkeyup="filterCities()" placeholder="Откуда" required>
+                <div id="cityList" class="city-list" style="display: none;">
+                    <div class="city-item">Ростов</div>
+                    <div class="city-item">Питер</div>
+                    <div class="city-item">Новоросийск</div>
+                    <div class="city-item">Москва</div>
+                    <div class="city-item">Сочи</div>
+                    <div class="city-item">Челябинск</div>
+                </div>
+            </div>
+            <input type="county2" class ="kuda" placeholder="Куда" required>
+            <input type="date" class ="tuda" placeholder="Туда" required>
+            <input type="date" class ="obratno" placeholder="Обратно" required>
+
+        </main>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
