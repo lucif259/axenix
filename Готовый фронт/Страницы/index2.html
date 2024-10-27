@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+    <link rel="stylesheet" href="log.css">
+</head>
+<body>
+    <header>
+        <h1>Вход в TrainSails</h1>
+    </header>
+    
+    <div class="container">
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="loginEmail">Email:</label>
+                <input type="email" id="loginEmail" required placeholder="Введите адрес электронной почты">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Пароль:</label>
+                <input type="password" id="loginPassword" required placeholder="Введите пароль">
+            </div>
+            <button type="button" class="btn" onclick="submitLogin()">Войти</button>
+        </form>
+        <button class="btn" onclick="goBack()">Назад</button>
+    </div>
+        </div>
+        </form>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Бронирование билетов РЖД</p>
+    </footer>
+
+    <script src="log.js"></script>
+    <script>
+        function goBack() {
+            window.history.back(); // Возвращает на предыдущую страницу
+        }
+    </script>
+</body>
+</html>
