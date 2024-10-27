@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Бронирование билетов</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            z-index: 1000;
+        }
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .city-list {
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            display: none;
+        }
+        .city-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+        .city-item:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div id="menu">
+        <main>
+            <h1 class="train">Train Sales</h1>
+            <h2 class="tickets">Забронировать билеты</h2>
+            <h3 class="marshrut">Маршруты</h3>
+            <button class="searchticket" onclick="openLogin()">Найти</button>
+        </main>
+    </div>
+
+    <a href="#" id="loginBtn" class="vhod" onclick="toggleLogin(event)">Вход</a>
+
+    <div class="modal-overlay" id="modalOverlay" onclick="toggleLogin(event)"></div>
+
+    <div class="modal" id="loginModal">
+        <p class="email">Email</p>
+        <input type="text" class="modalin" placeholder="Адрес электронной почты" required>
+        <p class="password">Пароль</p>
+        <input type="password" class="modalps" placeholder="Пароль" required>
+        <button class="butsign">Войти</button>
+        <button class="butreg">Зарегистрироваться</button>
+    </div>
+
+    <div class="form-group">
+        <input type="text" id="cityInput" class="out1" onkeyup="filterCities()" placeholder="Откуда" required>
+        <div id="cityList" class="city-list"></div>
+    </div>
+
+    <input type="text" class ="kuda" placeholder="Куда" required>
+    <input type="date" class ="tuda" placeholder="Туда" required>
+    <input type="date" class ="obratno" placeholder="Обратно">
+
+    <script src="app.js"></script>
+
+    <script>
+        const cities = ["Ростов", "Питер", "Новоросийск", "Москва", "Сочи", "Челябинск"];
+
+        function toggleLogin(event) {
+            event.preventDefault();
+            const modal = document.getElementById('loginModal');
+            const overlay = document.getElementById('modalOverlay');
+
+            if (modal.style.display === 'none' || modal.style.display === '') {
+                modal.style.display = 'block';
+                overlay.style.display = 'block';
+            } else {
+                modal.style.display = 'none';
+                overlay.style.display = 'none';
+            }
+        }
+
+        function filterCities() {
+            const input = document.getElementById('cityInput');
+            const filter = input.value.toLowerCase();
+            const cityList = document.getElementById('cityList');
+            
+            cityList.innerHTML = ''; // Очищаем список перед добавлением новых элементов
+
+            if (filter) {
+                const filteredCities = cities.filter(city => city.toLowerCase().includes(filter));
+                filteredCities.forEach(city => {
+                    const div = document.createElement('div');
+                    div.className = 'city-item';
+                    div.textContent = city;
+                    div.onclick = () => selectCity(city);
+                    cityList.appendChild(div);
+                });
+                cityList.style.display = filteredCities.length ? 'block' : 'none';
+            } else {
+                cityList.style.display = 'none';
+            }
+        }
+
+        function selectCity(city) {
+            document.getElementById('cityInput').value = city;
+            document.getElementById('cityList').style.display = 'none'; // Скрываем список после выбора
+        }
+
+        // Инициализация списка городов при загрузке
+        window.onload = function() {
+            filterCities();
+        };
+    </script>
+
+</body>
+</html>
